@@ -3,7 +3,7 @@ require 'uri'
 require 'json'
 
 # Replace 'your_openai_api_key' with your actual OpenAI API key.
-api_key = 'sk-proj-1xoI35dRMriKQaMlVl3cT3BlbkFJM48Te3EO6qNtIyxFkDBL'
+api_key = 'API KEY'
 
 uri = URI("https://api.openai.com/v1/audio/speech")
 
