@@ -6,7 +6,7 @@ require 'mime/types'
 # Your API key
 require 'dotenv/load'
 
-api_key = ENV['OPENAI_API_KEY']
+api_key = ''
 
 # Path to the audio file
 audio_file_path = 'outputs/speech.wav'
@@ -38,7 +38,7 @@ end
 response_body = JSON.parse(response.body)
 
 # Save the response to a JSON file
-File.open('transcription_with_timestamps.json', 'w') do |file|
+File.open('outputs/transcription_with_timestamps.json', 'w') do |file|
   file.write(JSON.pretty_generate(response_body))
 end
 

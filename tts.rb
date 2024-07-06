@@ -3,7 +3,7 @@ require 'uri'
 require 'json'
 
 # Replace 'your_openai_api_key' with your actual OpenAI API key.
-api_key = ENV['OPENAI_API_KEY']
+api_key = ''
 
 uri = URI("https://api.openai.com/v1/audio/speech")
 
@@ -20,7 +20,7 @@ script_text = File.open("resources/script.txt", "r").read
 body = {
   model: "tts-1",
   input: script_text,
-  voice: "alloy"
+  voice: "onyx"
 }
 request.body = body.to_json
 
@@ -29,7 +29,7 @@ response = http.request(request)
 
 # Check the response and save the file if successful
 if response.code.to_i == 200
-  File.open("outputs/speech.mp3", "wb") do |file|
+  File.open("outputs/speech.wav", "wb") do |file|
     file.write(response.body)
   end
   puts "Audio saved as 'speech.mp3'."
