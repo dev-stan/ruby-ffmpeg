@@ -6,7 +6,7 @@ require 'mime/types'
 # Your API key
 require 'dotenv/load'
 
-api_key = ''
+api_key = ENV['OPENAI_API_KEY']
 
 # Path to the audio file
 audio_file_path = 'outputs/speech.wav'

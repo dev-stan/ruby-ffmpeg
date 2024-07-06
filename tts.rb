@@ -3,7 +3,7 @@ require 'uri'
 require 'json'
 
 # Replace 'your_openai_api_key' with your actual OpenAI API key.
-api_key = ''
+api_key = ENV['OPENAI_API_KEY']
 
 uri = URI("https://api.openai.com/v1/audio/speech")
 
