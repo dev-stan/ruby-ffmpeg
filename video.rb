@@ -1,33 +1,47 @@
 require 'streamio-ffmpeg'
 require 'json'
 
-def add_subtitles_and_audio_to_video(input_video_path, subtitles, audio_path, output_video_path)
+def add_subtitles_audio_and_image_to_video(input_video_path, subtitles, audio_path, image_path, output_video_path)
   movie = FFMPEG::Movie.new(input_video_path)
-  audio = FFMPEG::Movie.new(audio_path)
 
-  # Create a new movie with subtitles and audio
-  movie.subtitles = subtitles.map do |subtitle|
-    FFMPEG::Subtitle.new(
-      subtitle[:text],
-      font: 'resources/font.ttf',
-      fontcolor: 'FFFFFF',
-      fontsize: 36,
-      bordercolor: '000000',
-      borderwidth: 5,
-      start_time: subtitle[:start],
-      end_time: subtitle[:end]
-    )
-  end
+  # Settings for subtitles
+  font_color = 'FFFFFF'
+  font_border_color = '000000'
+  font_border_width = 5
+  increase_font_size_animation = 6
 
-  movie.add_audio(audio)  # Add audio stream to the movie
+  drawtext_options = subtitles.map do |subtitle|
+    subtitle_text = subtitle[:text].gsub("'", "")  # Escape single quotes in the subtitle text
 
-  movie.transcode(output_video_path, { custom: %w(-c:v libx264 -c:a aac -strict experimental -shortest) })
+    start = subtitle[:start]
+    end_time = subtitle[:end]
+
+    # Drawtext filter with faster animated fontsize for a pop effect
+    drawtext_filter = %{
+      drawtext=text='#{subtitle_text}':fontcolor=0x#{font_color}:bordercolor=#{font_border_color}:borderw=#{font_border_width}:fontsize='36+#{increase_font_size_animation}*if(between(t,#{start},#{start}+0.1),(t-#{start})*10,if(between(t,#{end_time}-0.1,#{end_time}),(#{end_time}-t)*10,1))':fontfile=resources/font.ttf:box=0:boxcolor=black@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2:enable='between(t,#{start},#{end_time})'
+    }.strip
+
+    drawtext_filter
+  end.join(',')
+
+  # Prepare FFmpeg command with image overlay enabled only for the first 3 seconds
+  ffmpeg_command = %W(
+    ffmpeg -i #{input_video_path}
+    -i #{audio_path}
+    -i #{image_path}
+    -filter_complex "#{drawtext_options},overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/2:enable='between(t,0,3)'"
+    -map 0:v:0 -map 1:a:0 -c:v libx264 -c:a aac -strict experimental -shortest #{output_video_path}
+  ).join(' ')
+
+  # Transcode with subtitles, audio, and image overlay
+  system(ffmpeg_command)
 end
 
 # Main script execution
 input_video_path = 'resources/input_video.mp4'
 output_video_path = 'outputs/output_video.mp4'
 audio_path = 'outputs/speech.wav'
+image_path = 'outputs/output.png'
 
 # Ensure the input video exists
 unless File.exist?(input_video_path)
@@ -54,6 +68,8 @@ while i < words.length
     i += 1  # Move to the next word
   end
 
+  # Check if the current word's duration is less than 0.2s and there are more words
+
   # Adjust end time dynamically
   if i < words.length
     group[-1]["end"] = words[i]["start"]  # Set end time of current word to start time of next word
@@ -61,12 +77,12 @@ while i < words.length
 
   subtitles << {
     text: group.map { |word| word["word"] }.join(' '),
-    start: group.first["start"].to_f,
-    end: group.last["end"].to_f
+    start: group.first["start"],
+    end: group.last["end"]
   }
 end
 
-# Add subtitles and audio to video
-add_subtitles_and_audio_to_video(input_video_path, subtitles, audio_path, output_video_path)
+# Add subtitles, audio, and image overlay to video
+add_subtitles_audio_and_image_to_video(input_video_path, subtitles, audio_path, image_path, output_video_path)
 
-puts "Subtitles and audio added to video successfully. Output saved to #{output_video_path}"
+puts "Subtitles, audio, and image overlay added to video successfully. Output saved to #{output_video_path}"
