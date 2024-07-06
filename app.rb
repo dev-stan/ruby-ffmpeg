@@ -1,6 +1,7 @@
 require_relative 'video/video.rb'
 require_relative 'video/tts.rb'
 require_relative 'video/whispr.rb'
+require_relative 'reddit/get_post.rb'
 
 # Define the parameters
 input_video_path = 'video/resources/input_video.mp4'
@@ -12,16 +13,17 @@ output_video_path = 'video/outputs/output_video.mp4'
 video_editor = Video.new(input_video_path, output_video_path, audio_path, image_path)
 generate_voice = TTS.new
 generate_subs = Whispr.new
+get_post = RedditPost.new
 
 # Start total timer
 total_start_time = Time.now
 
-# Generate subtitles
-puts "Generating subtitles"
-subs_start_time = Time.now
-generate_subs.create_subs()
-subs_end_time = Time.now
-puts "Subtitles generated in #{subs_end_time - subs_start_time} seconds"
+# Get reddit post
+puts "Getting Reddit post"
+reddit_start_time = Time.now
+get_post.write_script()
+reddit_end_time = Time.now
+puts "Reddit post fetched in #{reddit_end_time - reddit_start_time} seconds"
 
 # Generate TTS voice
 puts "Generating TTS voice"
@@ -29,6 +31,13 @@ tts_start_time = Time.now
 generate_voice.generate_voice()
 tts_end_time = Time.now
 puts "TTS voice generated in #{tts_end_time - tts_start_time} seconds"
+
+# Generate subtitles
+puts "Generating subtitles"
+subs_start_time = Time.now
+generate_subs.create_subs()
+subs_end_time = Time.now
+puts "Subtitles generated in #{subs_end_time - subs_start_time} seconds"
 
 # Edit video
 puts "Editing video"

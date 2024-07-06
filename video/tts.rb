@@ -34,7 +34,7 @@ class TTS
       File.open("video/outputs/speech.wav", "wb") do |file|
         file.write(response.body)
       end
-      puts "Audio saved as 'speech.mp3'."
+
     else
       puts "Error: #{response.code}"
       puts response.body
