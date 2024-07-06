@@ -2,38 +2,42 @@ require 'net/http'
 require 'uri'
 require 'json'
 
-# Replace 'your_openai_api_key' with your actual OpenAI API key.
-api_key = ENV['OPENAI_API_KEY']
+class TTS
 
-uri = URI("https://api.openai.com/v1/audio/speech")
+  def generate_voice
+    api_key = ENV['OPENAI_API_KEY']
 
-# Prepare the request
-http = Net::HTTP.new(uri.host, uri.port)
-http.use_ssl = true
-request = Net::HTTP::Post.new(uri.request_uri)
-request['Authorization'] = "Bearer #{api_key}"
-request['Content-Type'] = 'application/json'
+    uri = URI("https://api.openai.com/v1/audio/speech")
 
-# Set up the request body
+    # Prepare the request
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    request = Net::HTTP::Post.new(uri.request_uri)
+    request['Authorization'] = "Bearer #{api_key}"
+    request['Content-Type'] = 'application/json'
 
-script_text = File.open("resources/script.txt", "r").read
-body = {
-  model: "tts-1",
-  input: script_text,
-  voice: "onyx"
-}
-request.body = body.to_json
+    # Set up the request body
 
-# Execute the request
-response = http.request(request)
+    script_text = File.open("video/resources/script.txt", "r").read
+    body = {
+      model: "tts-1",
+      input: script_text,
+      voice: "onyx"
+    }
+    request.body = body.to_json
 
-# Check the response and save the file if successful
-if response.code.to_i == 200
-  File.open("outputs/speech.wav", "wb") do |file|
-    file.write(response.body)
+    # Execute the request
+    response = http.request(request)
+
+    # Check the response and save the file if successful
+    if response.code.to_i == 200
+      File.open("video/outputs/speech.wav", "wb") do |file|
+        file.write(response.body)
+      end
+      puts "Audio saved as 'speech.mp3'."
+    else
+      puts "Error: #{response.code}"
+      puts response.body
+    end
   end
-  puts "Audio saved as 'speech.mp3'."
-else
-  puts "Error: #{response.code}"
-  puts response.body
 end

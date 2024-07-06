@@ -32,6 +32,8 @@ def fetch_reddit_post(post_id)
   else
     puts "Failed to fetch Reddit post. HTTP #{res.code}"
   end
+
+  post['selftext']
 end
 
 # Function to obtain OAuth token using client credentials flow
@@ -51,4 +53,5 @@ end
 
 # Example usage: Fetch and print content of a specific Reddit post
 # Replace 'reddit_post_id' with the actual Reddit post ID you want to fetch
-fetch_reddit_post('1d43rgs')
+
+File.open('video/resources/script.txt', 'w') { |file| file.write(fetch_reddit_post('1d43rgs')) }
