@@ -18,7 +18,7 @@ def add_subtitles_audio_and_image_to_video(input_video_path, subtitles, audio_pa
 
     # Drawtext filter with faster animated fontsize for a pop effect
     drawtext_filter = %{
-      drawtext=text='#{subtitle_text}':fontcolor=0x#{font_color}:bordercolor=#{font_border_color}:borderw=#{font_border_width}:fontsize='36+#{increase_font_size_animation}*if(between(t,#{start},#{start}+0.1),(t-#{start})*10,if(between(t,#{end_time}-0.1,#{end_time}),(#{end_time}-t)*10,1))':fontfile=resources/font.ttf:box=0:boxcolor=black@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2:enable='between(t,#{start},#{end_time})'
+      drawtext=text='#{subtitle_text}':fontcolor=0x#{font_color}:bordercolor=#{font_border_color}:borderw=#{font_border_width}:fontsize='36+#{increase_font_size_animation}*if(between(t,#{start},#{start}+0.1),(t-#{start})*10,if(between(t,#{end_time}-0.1,#{end_time}),(#{end_time}-t)*10,1))':fontfile=video/resources/font.ttf:box=0:boxcolor=black@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2:enable='between(t,#{start},#{end_time})'
     }.strip
 
     drawtext_filter
@@ -38,10 +38,10 @@ def add_subtitles_audio_and_image_to_video(input_video_path, subtitles, audio_pa
 end
 
 # Main script execution
-input_video_path = 'resources/input_video.mp4'
-output_video_path = 'outputs/output_video.mp4'
-audio_path = 'outputs/speech.wav'
-image_path = 'outputs/output.png'
+input_video_path = 'video/resources/input_video.mp4'
+output_video_path = 'video/outputs/output_video.mp4'
+audio_path = 'video/outputs/speech.wav'
+image_path = 'image/output.png'
 
 # Ensure the input video exists
 unless File.exist?(input_video_path)
@@ -49,7 +49,7 @@ unless File.exist?(input_video_path)
   exit
 end
 
-file = File.read('outputs/transcription_with_timestamps.json')
+file = File.read('video/outputs/transcription_with_timestamps.json')
 data = JSON.parse(file)
 
 # Process the words array
