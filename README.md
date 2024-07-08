@@ -11,4 +11,4 @@ This is a simple script made with `streamio-ffmpeg` used to generate short-form 
 Make sure you have Ruby installed, minimum version is `3.1.2`
 An `.env` file with your `OPEANAI_API_KEY` variable is required.
 
-To run the script simply run 'app.rb'
+To run the script simply run `app.rb`

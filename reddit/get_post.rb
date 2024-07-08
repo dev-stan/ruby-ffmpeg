@@ -13,7 +13,7 @@ class RedditPost
   AUTH_URL = 'https://www.reddit.com/api/v1/access_token'
 
   def write_script
-    File.open('video/resources/script.txt', 'w') { |file| file.write(fetch_reddit_post('1d43rgs')) }
+    File.open('video/resources/script.txt', 'w') { |file| file.write(fetch_reddit_post(get_post_id('https://www.reddit.com/r/Shortify/comments/1d43oj4/no_i_wont_tell_you_my_computer_name/'))) }
   end
 
   private
@@ -51,11 +51,19 @@ class RedditPost
     if res.is_a?(Net::HTTPSuccess)
       data = JSON.parse(res.body)
       post = data['data']['children'][0]['data']  # Extracting the post data
-      puts post['selftext']  # Outputting the post content
     else
       puts "Failed to fetch Reddit post. HTTP #{res.code}"
     end
 
-    post['selftext']
+    return post['selftext']
+  end
+
+  def get_post_id(url)
+    regex = %r{https:\/\/www\.reddit\.com\/r\/[a-zA-Z0-9_]+\/comments\/([a-zA-Z0-9]+)\/}
+
+    match = url.match(regex)
+    if match
+      return match[1]
+    end
   end
 end

@@ -1,7 +1,17 @@
-About 2 months back I'm sitting at my desk when my boss comes to talk to me. We're shooting the shit talking about the windows 11 update we're going to be pushing to our users, as they are currently on windows 10.  
-Finally he tells me he wants me to shoot some training videos and I joked I should shoot them in the style of starship troopers. We joke and talk about how I'm going to shoot them, and were just throwing ideas out for a solid 10 minutes joking around about these videos, were laughing hard just shooting the shit. Finally I get back to work. A week later he comes by and asks how those starship videos were coming along, to which I asked "Oh you were serious?" I then spent the next 2 months on and off shooting videos in the style of starship troopers introducing windows 11 to my users. We released them last week and I was pretty proud of it since I did the entire thing myself and got to learn about a video editing software I'd never used before/had never done before.  
-Well the videos were a pretty big hit, I talked in a deep voice the entire time, I "starshipified" the script, it was over the top patriotic, I also work for my local government so I also used my governments seal through out the videos. I put in background patriotic music that was free licensing.  
-It took off on Friday and we released a video each day for the next 3 days.  
-My users really loved the videos and weren't expecting the starship troopers references and so they started talking amongst each other and unknown to me they decided to watch the movies since enough of them reminisced about it. Today one of my users came to talk to me about how she could only watch the first 20 minutes.  
-She talked to me about the drug use and the police and it took a few minutes but finally I understood she had watched Super troopers. Whose opening scene is a shit ton of drug use and features a lot of over the top shenanigans.  
-After setting her straight and us both laughing she decided to give Starship troopers a shot.
+I'm in Tech Support, and a user calls, saying they need help on the computer. For this user, it would be easier to just see their screen than try to decrypt their code. I ask for the computer name, which is printed on a white label on the laptop lid.  
+They hesitate.  
+I remind them where the label is.  
+They say they don't know.  
+I remind them where the label is.  
+They ask if I can find out from my end.  
+I remind them how it's one second to close the lid a bit, it'd be a minute to look it up, and where the label is.  
+They request that I find out from my end.  
+I look up their computer, find the name, and ask if the computer name is correct.  
+They say yes.  
+I ask if that's the name on the label.  
+They say yes.  
+I wanted to ask why they felt like wasting my time that can never come back but I just try to fix the issue ASAP so I can hang up.  
+Unprompted, they say that they didn't know if they were supposed to say the name.  
+I guess somehow they didn't trust the number they called, the company Tech Support line.  
+I'd love to see quantum computing take a crack at decrypting whatever goes on in their brain cell into anything resembling rational thought.  
+I guess next time I'll just say I'll call them back once I figure out the computer name.
