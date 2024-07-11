@@ -12,3 +12,7 @@ Make sure you have Ruby installed, minimum version is `3.1.2`
 An `.env` file with your `OPEANAI_API_KEY` variable is required.
 
 To run the script simply run `app.rb`
+
+For rails side note:
+
+rails active_storage:install
