@@ -16,3 +16,5 @@ To run the script simply run `app.rb`
 For rails side note:
 
 rails active_storage:install
+
+todo
